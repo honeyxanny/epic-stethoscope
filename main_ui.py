@@ -151,10 +151,6 @@ class Ui_MainWindow(object):
 
         self.inputDevicesOptions.addWidget(self.bitDepthComboBox)
 
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.inputDevicesOptions.addItem(self.horizontalSpacer)
-
 
         self.verticalLayout.addLayout(self.inputDevicesOptions)
 
@@ -171,24 +167,24 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.playTitle)
 
-        self.playbackDeviceSelection = QHBoxLayout()
-        self.playbackDeviceSelection.setObjectName(u"playbackDeviceSelection")
-        self.playbackDeviceLabel = QLabel(self.centralwidget)
-        self.playbackDeviceLabel.setObjectName(u"playbackDeviceLabel")
-        self.playbackDeviceLabel.setLocale(QLocale(QLocale.Russian, QLocale.Russia))
-        self.playbackDeviceLabel.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
+        self.outputDeviceSelection = QHBoxLayout()
+        self.outputDeviceSelection.setObjectName(u"outputDeviceSelection")
+        self.poutputDeviceLabel = QLabel(self.centralwidget)
+        self.poutputDeviceLabel.setObjectName(u"poutputDeviceLabel")
+        self.poutputDeviceLabel.setLocale(QLocale(QLocale.Russian, QLocale.Russia))
+        self.poutputDeviceLabel.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
 
-        self.playbackDeviceSelection.addWidget(self.playbackDeviceLabel)
+        self.outputDeviceSelection.addWidget(self.poutputDeviceLabel)
 
-        self.playbackDeviceComboBox = QComboBox(self.centralwidget)
-        self.playbackDeviceComboBox.setObjectName(u"playbackDeviceComboBox")
-        sizePolicy2.setHeightForWidth(self.playbackDeviceComboBox.sizePolicy().hasHeightForWidth())
-        self.playbackDeviceComboBox.setSizePolicy(sizePolicy2)
+        self.outputDeviceComboBox = QComboBox(self.centralwidget)
+        self.outputDeviceComboBox.setObjectName(u"outputDeviceComboBox")
+        sizePolicy2.setHeightForWidth(self.outputDeviceComboBox.sizePolicy().hasHeightForWidth())
+        self.outputDeviceComboBox.setSizePolicy(sizePolicy2)
 
-        self.playbackDeviceSelection.addWidget(self.playbackDeviceComboBox)
+        self.outputDeviceSelection.addWidget(self.outputDeviceComboBox)
 
 
-        self.verticalLayout.addLayout(self.playbackDeviceSelection)
+        self.verticalLayout.addLayout(self.outputDeviceSelection)
 
         self.fillerLabel2 = QLabel(self.centralwidget)
         self.fillerLabel2.setObjectName(u"fillerLabel2")
@@ -225,12 +221,12 @@ class Ui_MainWindow(object):
 
         self.outputAudioOptions.addWidget(self.shapeLabel)
 
-        self.comboBox = QComboBox(self.centralwidget)
-        self.comboBox.setObjectName(u"comboBox")
-        sizePolicy4.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
-        self.comboBox.setSizePolicy(sizePolicy4)
+        self.shapeComboBox = QComboBox(self.centralwidget)
+        self.shapeComboBox.setObjectName(u"shapeComboBox")
+        sizePolicy4.setHeightForWidth(self.shapeComboBox.sizePolicy().hasHeightForWidth())
+        self.shapeComboBox.setSizePolicy(sizePolicy4)
 
-        self.outputAudioOptions.addWidget(self.comboBox)
+        self.outputAudioOptions.addWidget(self.shapeComboBox)
 
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -245,17 +241,13 @@ class Ui_MainWindow(object):
 
         self.outputAudioOptions.addWidget(self.frequencyLabel)
 
-        self.spinBox = QSpinBox(self.centralwidget)
-        self.spinBox.setObjectName(u"spinBox")
-        self.spinBox.setMaximumSize(QSize(16777215, 16777215))
-        self.spinBox.setMaximum(44100)
-        self.spinBox.setValue(8000)
+        self.frequencySpinBox = QSpinBox(self.centralwidget)
+        self.frequencySpinBox.setObjectName(u"frequencySpinBox")
+        self.frequencySpinBox.setMaximumSize(QSize(16777215, 16777215))
+        self.frequencySpinBox.setMaximum(44100)
+        self.frequencySpinBox.setValue(8000)
 
-        self.outputAudioOptions.addWidget(self.spinBox)
-
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.outputAudioOptions.addItem(self.horizontalSpacer_4)
+        self.outputAudioOptions.addWidget(self.frequencySpinBox)
 
 
         self.verticalLayout.addLayout(self.outputAudioOptions)
@@ -310,7 +302,7 @@ class Ui_MainWindow(object):
         self.bitDepthLabel.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u043b-\u0432\u043e \u0431\u0438\u0442", None))
         self.fillerLabel3.setText("")
         self.playTitle.setText(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u0441\u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0434\u0435\u043d\u0438\u0435", None))
-        self.playbackDeviceLabel.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e", None))
+        self.poutputDeviceLabel.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e", None))
         self.fillerLabel2.setText("")
         self.volumeLabel.setText(QCoreApplication.translate("MainWindow", u"\u0413\u0440\u043e\u043c\u043a\u043e\u0441\u0442\u044c", None))
         self.shapeLabel.setText(QCoreApplication.translate("MainWindow", u"\u0424\u043e\u0440\u043c\u0430 \u0441\u0438\u0433\u043d\u0430\u043b\u0430", None))

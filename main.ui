@@ -143,7 +143,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="inputDevicesOptions" stretch="0,0,0,0,0,0">
+       <layout class="QHBoxLayout" name="inputDevicesOptions" stretch="0,0,0,0,0">
         <item>
          <widget class="QLabel" name="sampleRateLabel">
           <property name="sizePolicy">
@@ -215,19 +215,6 @@
           </property>
          </widget>
         </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
        </layout>
       </item>
       <item>
@@ -256,9 +243,9 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="playbackDeviceSelection">
+       <layout class="QHBoxLayout" name="outputDeviceSelection">
         <item>
-         <widget class="QLabel" name="playbackDeviceLabel">
+         <widget class="QLabel" name="poutputDeviceLabel">
           <property name="locale">
            <locale language="Russian" country="Russia"/>
           </property>
@@ -271,7 +258,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="playbackDeviceComboBox">
+         <widget class="QComboBox" name="outputDeviceComboBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -323,7 +310,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="outputAudioOptions" stretch="0,0,0,0,0,0">
+       <layout class="QHBoxLayout" name="outputAudioOptions" stretch="0,0,0,0,0">
         <item>
          <widget class="QLabel" name="shapeLabel">
           <property name="locale">
@@ -338,7 +325,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox">
+         <widget class="QComboBox" name="shapeComboBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -380,7 +367,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox">
+         <widget class="QSpinBox" name="frequencySpinBox">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -394,19 +381,6 @@
            <number>8000</number>
           </property>
          </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </item>

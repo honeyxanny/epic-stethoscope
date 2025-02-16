@@ -1,10 +1,7 @@
-from main_ui import Ui_MainWindow
-from PySide6 import QtWidgets
+from PySide6.QtWidgets import QApplication
+from window import MainWindow
 
-app = QtWidgets.QApplication()
-MainWindow = QtWidgets.QMainWindow()
-ui = Ui_MainWindow()
-ui.setupUi(MainWindow)
-MainWindow.show()
-
+app = QApplication()
+window = MainWindow()
+window.run()
 app.exec()
