@@ -49,7 +49,6 @@ class MainWindow(QMainWindow):
         self.ui.recordButton.clicked.connect(self.__register_record_button_click)
         self.ui.playButton.clicked.connect(self.__register_play_button_click)
 
-        # self.ui.firstDeviceComboBox.curren
         self.show()
     
     def __change_options_state(self, flag: bool) -> None:
@@ -97,7 +96,8 @@ class MainWindow(QMainWindow):
         index1 = self.ui.firstDeviceComboBox.currentIndex()
         index2 = self.ui.secondDeviceComboBox.currentIndex()
         
-        if self.previous_first_index != index1:
-            self.ui.secondDeviceComboBox.setCurrentIndex(self.previous_first_index)
-        elif self.previous_second_index != index2:
-            self.ui.firstDeviceComboBox.setCurrentIndex(self.previous_second_index)
+        if index1 == index2:
+            if index1 != self.previous_first_index:
+                self.ui.secondDeviceComboBox.setCurrentIndex(self.previous_first_index)
+            elif index2 != self.previous_second_index:
+                self.ui.firstDeviceComboBox.setCurrentIndex(self.previous_second_index)
