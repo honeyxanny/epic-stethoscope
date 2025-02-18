@@ -306,7 +306,7 @@ class Ui_MainWindow(object):
         self.fillerLabel2.setText("")
         self.volumeLabel.setText(QCoreApplication.translate("MainWindow", u"\u0413\u0440\u043e\u043c\u043a\u043e\u0441\u0442\u044c", None))
         self.shapeLabel.setText(QCoreApplication.translate("MainWindow", u"\u0424\u043e\u0440\u043c\u0430 \u0441\u0438\u0433\u043d\u0430\u043b\u0430", None))
-        self.frequencyLabel.setText(QCoreApplication.translate("MainWindow", u"\u0427\u0430\u0441\u0442\u043e\u0442\u0430 (Hz)", None))
+        self.frequencyLabel.setText(QCoreApplication.translate("MainWindow", u"\u0427\u0430\u0441\u0442\u043e\u0442\u0430", None))
         self.playButton.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0443\u043a", None))
         self.recordButton.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u0438\u0441\u044c", None))
         pass

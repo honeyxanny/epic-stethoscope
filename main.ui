@@ -359,7 +359,7 @@
            <locale language="Russian" country="Russia"/>
           </property>
           <property name="text">
-           <string>Частота (Hz)</string>
+           <string>Частота</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>

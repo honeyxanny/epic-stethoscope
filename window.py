@@ -1,43 +1,30 @@
-import pyaudio
 from main_ui import Ui_MainWindow
 from PySide6.QtWidgets import QMainWindow
+from audio import AudioProcessor
 
 from config import config
 
 class MainWindow(QMainWindow):
-    previous_first_index = 0
-    previous_second_index = 0
+    previous_device1_index = 0
+    previous_device2_index = 0
 
-    is_recording = False
-    is_playing = False
-
-    def __init__(self):
+    def __init__(self, audio_processor: AudioProcessor):
         super().__init__() 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        
-        p = pyaudio.PyAudio()
+        self.ap = audio_processor
 
-        input_device_names = []
-        output_device_names = []
-
-        for i in range(p.get_device_count()):
-            device_info = p.get_device_info_by_index(i)
-
-            if device_info['maxInputChannels'] > 0:
-                input_device_names.append(f'({i}) {device_info["name"].encode("cp1251").decode("utf-8")}')
-            if device_info['maxOutputChannels'] > 0:
-                output_device_names.append(f'({i}) {device_info["name"].encode("cp1251").decode("utf-8")}')
+        input_device_names, output_device_names = self.ap.get_info_about_system()
 
         self.ui.firstDeviceComboBox.addItems(input_device_names)
         self.ui.secondDeviceComboBox.addItems(input_device_names)
         self.ui.secondDeviceComboBox.setCurrentIndex(1)
-        self.previous_second_index = 1
+        self.previous_device2_index = 1
         self.ui.outputDeviceComboBox.addItems(output_device_names)
 
         self.ui.sampleRateComboBox.addItems([str(sample_rate) for sample_rate in config.sample_rates])
         self.ui.bitDepthComboBox.addItems([str(bit_depth) for bit_depth in config.bit_depths])
-        self.ui.shapeComboBox.addItems(config.shape_names)
+        self.ui.shapeComboBox.addItems(["Синусоида", "Квадрат", "Пила"])
 
     def run(self) -> None:
         self.ui.firstDeviceComboBox.currentIndexChanged.connect(self.__validate_input_device_selection)
@@ -75,29 +62,35 @@ class MainWindow(QMainWindow):
             self.is_recording = True
 
     def __register_play_button_click(self):
-        if self.is_playing:
+        if self.ap.is_playing:
+            self.ap.stop_sound()
+
             self.__change_options_state(True)
-
             self.ui.playButton.setText('Звук')
-            self.is_playing = False
         else:
-            self.__change_options_state(False)
+            self.ap.start_sound(
+                self.ui.outputDeviceComboBox.currentIndex(),
+                self.ui.shapeComboBox.currentText(),
+                int(self.ui.sampleRateComboBox.currentText()),
+                int(self.ui.sampleRateComboBox.currentText()),
+                self.ui.volumeSlider.value()
+            )
 
+            self.__change_options_state(False)
             self.ui.playButton.setText('Стоп')
-            self.is_playing = True
 
     def __register_first_index(self):
-        self.previous_first_index = self.ui.firstDeviceComboBox.currentIndex()
+        self.previous_device1_index = self.ui.firstDeviceComboBox.currentIndex()
 
     def __register_second_index(self):
-        self.previous_second_index = self.ui.secondDeviceComboBox.currentIndex()
+        self.previous_device2_index = self.ui.secondDeviceComboBox.currentIndex()
 
     def __validate_input_device_selection(self):
         index1 = self.ui.firstDeviceComboBox.currentIndex()
         index2 = self.ui.secondDeviceComboBox.currentIndex()
         
         if index1 == index2:
-            if index1 != self.previous_first_index:
-                self.ui.secondDeviceComboBox.setCurrentIndex(self.previous_first_index)
-            elif index2 != self.previous_second_index:
-                self.ui.firstDeviceComboBox.setCurrentIndex(self.previous_second_index)
+            if index1 != self.previous_device1_index:
+                self.ui.secondDeviceComboBox.setCurrentIndex(self.previous_device1_index)
+            elif index2 != self.previous_device2_index:
+                self.ui.firstDeviceComboBox.setCurrentIndex(self.previous_device2_index)
