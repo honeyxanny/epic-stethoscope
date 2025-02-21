@@ -14,13 +14,17 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         self.ap = audio_processor
 
-        input_device_names, output_device_names = self.ap.get_info_about_system()
+        input_device_info, output_device_info = self.ap.get_info_about_system()
 
-        self.ui.firstDeviceComboBox.addItems(input_device_names)
-        self.ui.secondDeviceComboBox.addItems(input_device_names)
+        for input_device in input_device_info:
+            self.ui.firstDeviceComboBox.addItem(*input_device)
+            self.ui.secondDeviceComboBox.addItem(*input_device)
+
         self.ui.secondDeviceComboBox.setCurrentIndex(1)
         self.previous_device2_index = 1
-        self.ui.outputDeviceComboBox.addItems(output_device_names)
+        
+        for ouput_device in output_device_info:
+            self.ui.outputDeviceComboBox.addItem(*ouput_device)
 
         self.ui.sampleRateComboBox.addItems([str(sample_rate) for sample_rate in config.sample_rates])
         self.ui.bitDepthComboBox.addItems([str(bit_depth) for bit_depth in config.bit_depths])
@@ -50,30 +54,33 @@ class MainWindow(QMainWindow):
         self.ui.frequencySpinBox.setEnabled(flag)
     
     def __register_record_button_click(self):
-        if self.is_recording:
+        if self.ap.is_recording:
             self.__change_options_state(True)
-
+            self.ap.stop_record()
             self.ui.recordButton.setText('Запись')
-            self.is_recording = False
         else:
             self.__change_options_state(False)
 
+            self.ap.start_record(
+                self.ui.firstDeviceComboBox.currentData(),
+                self.ui.secondDeviceComboBox.currentData(),
+                int(self.ui.sampleRateComboBox.currentText())
+            )
+
             self.ui.recordButton.setText('Стоп')
-            self.is_recording = True
 
     def __register_play_button_click(self):
         if self.ap.is_playing:
             self.ap.stop_sound()
-
             self.__change_options_state(True)
             self.ui.playButton.setText('Звук')
         else:
             self.ap.start_sound(
-                self.ui.outputDeviceComboBox.currentIndex(),
+                self.ui.outputDeviceComboBox.currentData(),
                 self.ui.shapeComboBox.currentText(),
                 int(self.ui.sampleRateComboBox.currentText()),
-                int(self.ui.sampleRateComboBox.currentText()),
-                self.ui.volumeSlider.value()
+                int(self.ui.frequencySpinBox.value()),
+                self.ui.volumeSlider.value() / self.ui.volumeSlider.maximum()
             )
 
             self.__change_options_state(False)
