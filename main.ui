@@ -412,6 +412,13 @@
       <item>
        <layout class="QHBoxLayout" name="controlsGroup">
         <item>
+         <widget class="QPushButton" name="plotButton">
+          <property name="text">
+           <string>График</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="playButton">
           <property name="text">
            <string>Звук</string>

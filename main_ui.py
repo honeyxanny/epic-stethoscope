@@ -269,6 +269,11 @@ class Ui_MainWindow(object):
 
         self.controlsGroup = QHBoxLayout()
         self.controlsGroup.setObjectName(u"controlsGroup")
+        self.plotButton = QPushButton(self.centralwidget)
+        self.plotButton.setObjectName(u"plotButton")
+
+        self.controlsGroup.addWidget(self.plotButton)
+
         self.playButton = QPushButton(self.centralwidget)
         self.playButton.setObjectName(u"playButton")
 
@@ -319,6 +324,7 @@ class Ui_MainWindow(object):
         self.shapeLabel.setText(QCoreApplication.translate("MainWindow", u"\u0424\u043e\u0440\u043c\u0430 \u0441\u0438\u0433\u043d\u0430\u043b\u0430", None))
         self.frequencyLabel.setText(QCoreApplication.translate("MainWindow", u"\u0427\u0430\u0441\u0442\u043e\u0442\u0430", None))
         self.checkBox.setText(QCoreApplication.translate("MainWindow", u"\u0411\u0435\u0441\u043a\u043e\u043d\u0435\u0447\u043d\u044b\u0439 \u0437\u0432\u0443\u043a", None))
+        self.plotButton.setText(QCoreApplication.translate("MainWindow", u"\u0413\u0440\u0430\u0444\u0438\u043a", None))
         self.playButton.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0443\u043a", None))
         self.recordButton.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u0438\u0441\u044c", None))
         pass
