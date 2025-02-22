@@ -15,16 +15,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QHBoxLayout,
-    QLabel, QMainWindow, QMenuBar, QPushButton,
-    QSizePolicy, QSlider, QSpacerItem, QSpinBox,
-    QStatusBar, QTabWidget, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QGridLayout,
+    QHBoxLayout, QLabel, QMainWindow, QMenuBar,
+    QPushButton, QSizePolicy, QSlider, QSpacerItem,
+    QSpinBox, QStatusBar, QTabWidget, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(458, 402)
+        MainWindow.resize(458, 457)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -135,22 +136,6 @@ class Ui_MainWindow(object):
 
         self.inputDevicesOptions.addItem(self.horizontalSpacer_2)
 
-        self.bitDepthLabel = QLabel(self.centralwidget)
-        self.bitDepthLabel.setObjectName(u"bitDepthLabel")
-        sizePolicy3.setHeightForWidth(self.bitDepthLabel.sizePolicy().hasHeightForWidth())
-        self.bitDepthLabel.setSizePolicy(sizePolicy3)
-        self.bitDepthLabel.setLocale(QLocale(QLocale.Russian, QLocale.Russia))
-        self.bitDepthLabel.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
-
-        self.inputDevicesOptions.addWidget(self.bitDepthLabel)
-
-        self.bitDepthComboBox = QComboBox(self.centralwidget)
-        self.bitDepthComboBox.setObjectName(u"bitDepthComboBox")
-        sizePolicy4.setHeightForWidth(self.bitDepthComboBox.sizePolicy().hasHeightForWidth())
-        self.bitDepthComboBox.setSizePolicy(sizePolicy4)
-
-        self.inputDevicesOptions.addWidget(self.bitDepthComboBox)
-
 
         self.verticalLayout.addLayout(self.inputDevicesOptions)
 
@@ -212,6 +197,27 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addLayout(self.volumeSelection)
 
+        self.ouputDeviceGroup = QHBoxLayout()
+        self.ouputDeviceGroup.setObjectName(u"ouputDeviceGroup")
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.ouputDeviceGroup.addItem(self.horizontalSpacer)
+
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+
+        self.ouputDeviceGroup.addWidget(self.label_2)
+
+        self.spinBox = QSpinBox(self.centralwidget)
+        self.spinBox.setObjectName(u"spinBox")
+        self.spinBox.setMinimum(1)
+        self.spinBox.setMaximum(600)
+
+        self.ouputDeviceGroup.addWidget(self.spinBox)
+
+
+        self.verticalLayout.addLayout(self.ouputDeviceGroup)
+
         self.outputAudioOptions = QHBoxLayout()
         self.outputAudioOptions.setObjectName(u"outputAudioOptions")
         self.shapeLabel = QLabel(self.centralwidget)
@@ -251,6 +257,11 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout.addLayout(self.outputAudioOptions)
+
+        self.checkBox = QCheckBox(self.centralwidget)
+        self.checkBox.setObjectName(u"checkBox")
+
+        self.verticalLayout.addWidget(self.checkBox)
 
         self.verticalSpacer_2 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -299,14 +310,15 @@ class Ui_MainWindow(object):
         self.secondDeviceLabel.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e 2", None))
         self.fillerLabel1.setText("")
         self.sampleRateLabel.setText(QCoreApplication.translate("MainWindow", u"\u0427\u0430\u0441\u0442\u043e\u0442\u0430 \u0434\u0438\u0441\u043a\u0440\u0435\u0442\u0438\u0437\u0430\u0446\u0438\u0438", None))
-        self.bitDepthLabel.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u043b-\u0432\u043e \u0431\u0438\u0442", None))
         self.fillerLabel3.setText("")
         self.playTitle.setText(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u0441\u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0434\u0435\u043d\u0438\u0435", None))
         self.poutputDeviceLabel.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e", None))
         self.fillerLabel2.setText("")
         self.volumeLabel.setText(QCoreApplication.translate("MainWindow", u"\u0413\u0440\u043e\u043c\u043a\u043e\u0441\u0442\u044c", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043b\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c", None))
         self.shapeLabel.setText(QCoreApplication.translate("MainWindow", u"\u0424\u043e\u0440\u043c\u0430 \u0441\u0438\u0433\u043d\u0430\u043b\u0430", None))
         self.frequencyLabel.setText(QCoreApplication.translate("MainWindow", u"\u0427\u0430\u0441\u0442\u043e\u0442\u0430", None))
+        self.checkBox.setText(QCoreApplication.translate("MainWindow", u"\u0411\u0435\u0441\u043a\u043e\u043d\u0435\u0447\u043d\u044b\u0439 \u0437\u0432\u0443\u043a", None))
         self.playButton.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0443\u043a", None))
         self.recordButton.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u0438\u0441\u044c", None))
         pass

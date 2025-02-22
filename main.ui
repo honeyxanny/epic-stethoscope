@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>458</width>
-    <height>402</height>
+    <height>457</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -56,7 +56,7 @@
      </spacer>
     </item>
     <item row="1" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
       <item>
        <widget class="QLabel" name="recordTitle">
         <property name="font">
@@ -143,7 +143,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="inputDevicesOptions" stretch="0,0,0,0,0">
+       <layout class="QHBoxLayout" name="inputDevicesOptions" stretch="0,0,0">
         <item>
          <widget class="QLabel" name="sampleRateLabel">
           <property name="sizePolicy">
@@ -185,35 +185,6 @@
            </size>
           </property>
          </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="bitDepthLabel">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="locale">
-           <locale language="Russian" country="Russia"/>
-          </property>
-          <property name="text">
-           <string>Кол-во бит</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="bitDepthComboBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
         </item>
        </layout>
       </item>
@@ -310,6 +281,40 @@
        </layout>
       </item>
       <item>
+       <layout class="QHBoxLayout" name="ouputDeviceGroup">
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Длительность</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="spinBox">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>600</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="outputAudioOptions" stretch="0,0,0,0,0">
         <item>
          <widget class="QLabel" name="shapeLabel">
@@ -383,6 +388,13 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox">
+        <property name="text">
+         <string>Бесконечный звук</string>
+        </property>
+       </widget>
       </item>
       <item>
        <spacer name="verticalSpacer_2">

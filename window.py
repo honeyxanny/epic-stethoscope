@@ -27,8 +27,7 @@ class MainWindow(QMainWindow):
             self.ui.outputDeviceComboBox.addItem(*ouput_device)
 
         self.ui.sampleRateComboBox.addItems([str(sample_rate) for sample_rate in config.sample_rates])
-        self.ui.bitDepthComboBox.addItems([str(bit_depth) for bit_depth in config.bit_depths])
-        self.ui.shapeComboBox.addItems(["Синусоида", "Квадрат", "Пила"])
+        self.ui.shapeComboBox.addItems(self.ap.shapes.keys())
 
     def run(self) -> None:
         self.ui.firstDeviceComboBox.currentIndexChanged.connect(self.__validate_input_device_selection)
@@ -46,7 +45,6 @@ class MainWindow(QMainWindow):
         self.ui.firstDeviceComboBox.setEnabled(flag)
         self.ui.secondDeviceComboBox.setEnabled(flag)
         self.ui.sampleRateComboBox.setEnabled(flag)
-        self.ui.bitDepthComboBox.setEnabled(flag)
         self.ui.outputDeviceComboBox.setEnabled(flag)
         self.ui.volumeSlider.setEnabled(flag)
         self.ui.sampleRateComboBox.setEnabled(flag)
@@ -78,7 +76,6 @@ class MainWindow(QMainWindow):
             self.ap.start_sound(
                 self.ui.outputDeviceComboBox.currentData(),
                 self.ui.shapeComboBox.currentText(),
-                int(self.ui.sampleRateComboBox.currentText()),
                 int(self.ui.frequencySpinBox.value()),
                 self.ui.volumeSlider.value() / self.ui.volumeSlider.maximum()
             )

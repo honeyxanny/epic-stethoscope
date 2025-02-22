@@ -1,8 +1,8 @@
 import pyaudio
-import signal
 import numpy as np
 import wave
 
+from scipy.signal import sawtooth, square
 from datetime import datetime
 from threading import Thread
 from config import config
@@ -15,6 +15,15 @@ class AudioProcessor:
 
     is_playing = False
     is_recording = False
+
+    stream1_start = None
+    stream2_start = None
+    
+    shapes = {
+        'Синусоида': lambda scale: np.sin(2 * np.pi * scale),
+        'Квадрат': lambda scale: square(2 * np.pi * scale),
+        'Пила': lambda scale: sawtooth(2 * np.pi * scale, width=0.5)
+    }
 
     def get_info_about_system(self) -> tuple[list[tuple[str, int]], list[tuple[str, int]]]:
         input_device_names = []
@@ -34,21 +43,13 @@ class AudioProcessor:
         self, 
         device_id: int,
         shape: str,
-        sample_rate: int,
         frequency: int,
         volume: int
     ) -> None:
         self.is_playing = True
 
-        thread = Thread(target=self._play, args=(device_id, shape, sample_rate, frequency, volume,))
+        thread = Thread(target=self._play, args=(device_id, shape, frequency, volume,))
         thread.start()
-
-        # if shape == "Синусоида":
-        #     wave = (np.sin(2 * np.pi * np.arange(sample_rate * 2 * np.pi) * frequency / sample_rate)).astype(np.float32)
-        # elif shape == "Квадрат":
-        #     wave = (signal.sawtooth(2 * np.pi * np.arange(sample_rate * 2 * np.pi) * frequency / sample_rate)).astype(np.float32)
-        # elif shape == "Пила":
-        #     wave = (signal.square(2 * np.pi * np.arange(sample_rate * 2 * np.pi) * frequency / sample_rate)).astype(np.float32)
 
     def stop_sound(self) -> None:
         self.is_playing = False
@@ -56,35 +57,40 @@ class AudioProcessor:
     def _play(
         self, 
         device_id: int, 
-        shape: str, 
-        sample_rate: int, 
+        shape: str,
         frequency: int, 
         volume: float
     ) -> None:
-        sound = self.p.open(format=pyaudio.paFloat32, output_device_index=device_id, channels=1, rate=sample_rate, output=True)
+        sample_rate = int(self.p.get_device_info_by_index(device_id).get('defaultSampleRate'))
+
+        t = np.arange(0, sample_rate / frequency) / sample_rate
+        waveform = volume * self.shapes[shape](frequency * t)
+        waveform = (waveform * 32767).astype(np.int16)
+
+        stream = self.p.open(format=pyaudio.paInt16, output_device_index=device_id, channels=1, rate=sample_rate, output=True)
         
         while self.is_playing:
-            sound.write(volume * (np.sin(np.pi * np.arange(sample_rate * 2 * np.pi) * frequency / sample_rate)).astype(np.float32))
-
-        sound.stop_stream()
-        sound.close()
+            stream.write(waveform.tobytes())
+        else:
+            stream.stop_stream()
+            stream.close()
 
     def _record(
         self, 
         device_id: int,
         sample_rate: int
     ):
-        channels = 2
-
         stream = self.p.open(
             format=self.sample_format,
-            channels=channels,
+            channels=self.p.get_device_info_by_index(device_id).get('maxInputChannels'),
             rate=sample_rate,
             frames_per_buffer=self.chunk,
             input_device_index=device_id,
             input=True
         )
 
+        print(f'{device_id} start: {datetime.now().timestamp()}')
+        
         frames = []
 
         while self.is_recording:
