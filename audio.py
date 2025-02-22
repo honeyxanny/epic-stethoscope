@@ -156,6 +156,14 @@ class AudioProcessor:
         data1 = self._get_data_from_sound(file_path1)
         data2 = self._get_data_from_sound(file_path2)
 
+        length1 = len(data1)
+        length2 = len(data2)
+
+        if length1 < length2:
+            data1 = np.concatenate((data1, np.zeros(length2 - length1)))
+        elif length2 < length1:
+            data2 = np.concatenate((data2, np.zeros(length1 - length2)))
+
         _, (ax1, ax2, ax3) = plt.subplots(3, 1)
 
         ax1.plot(data1, color='b')
