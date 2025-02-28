@@ -46,11 +46,12 @@ class AudioProcessor:
         device_id: int,
         shape: str,
         frequency: int,
-        volume: int
+        volume: int,
+        duration: int = - 1
     ) -> None:
         self.is_playing = True
 
-        thread = Thread(target=self._play, args=(device_id, shape, frequency, volume,))
+        thread = Thread(target=self._play, args=(device_id, shape, frequency, volume, duration))
         thread.start()
 
     def stop_sound(self) -> None:
@@ -61,7 +62,8 @@ class AudioProcessor:
         device_id: int, 
         shape: str,
         frequency: int, 
-        volume: float
+        volume: float,
+        duration: int
     ) -> None:
         sample_rate = int(self.p.get_device_info_by_index(device_id).get('defaultSampleRate'))
 
@@ -69,13 +71,21 @@ class AudioProcessor:
         waveform = volume * self.shapes[shape](frequency * t)
         waveform = (waveform * 32767).astype(np.int16)
 
+        num_iterations = int(sample_rate * duration / len(waveform))
+
         stream = self.p.open(format=pyaudio.paInt16, output_device_index=device_id, channels=1, rate=sample_rate, output=True)
-        
-        while self.is_playing:
-            stream.write(waveform.tobytes())
+
+        if duration < 0:
+            while self.is_playing:
+                stream.write(waveform.tobytes())
         else:
-            stream.stop_stream()
-            stream.close()
+            for _ in range(num_iterations):
+                if not self.is_playing:
+                    break
+                stream.write(waveform.tobytes())
+
+        stream.stop_stream()
+        stream.close()
 
     def _record(
         self, 
@@ -113,22 +123,16 @@ class AudioProcessor:
         self, 
         device1_id: int, 
         device2_id: int,
-        device3_id: int, 
         sample_rate: int,
-        shape: str,
-        frequency: int,
-        volume: float
     ) -> None:
         self.is_recording = True
         self.is_playing = True
 
         thread1 = Thread(target=self._record, args=(device1_id, sample_rate,))
         thread2 = Thread(target=self._record, args=(device2_id, sample_rate,))
-        thread3 = Thread(target=self._play, args=(device3_id, shape, frequency, volume, ))
 
         thread1.start()
         thread2.start()
-        thread3.start()
 
     def stop_record(self) -> None:
         self.is_recording = False
@@ -137,7 +141,6 @@ class AudioProcessor:
     def _get_data_from_sound(self, file_path: str) -> list:
         with wave.open(file_path, 'rb') as wav_file:
             n_channels = wav_file.getnchannels()
-            #frame_rate = wav_file.getframerate()
             n_frames = wav_file.getnframes()
 
             audio_data = wav_file.readframes(n_frames)

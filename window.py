@@ -65,11 +65,15 @@ class MainWindow(QMainWindow):
                 self.ap.start_record(
                     self.ui.firstDeviceComboBox.currentData(),
                     self.ui.secondDeviceComboBox.currentData(),
-                    self.ui.outputDeviceComboBox.currentData(),
                     int(self.ui.sampleRateComboBox.currentText()),
+                )
+
+                self.ap.start_sound(
+                    self.ui.outputDeviceComboBox.currentData(),
                     self.ui.shapeComboBox.currentText(),
                     int(self.ui.frequencySpinBox.value()),
-                    self.ui.volumeSlider.value() / self.ui.volumeSlider.maximum()
+                    self.ui.volumeSlider.value() / self.ui.volumeSlider.maximum(),
+                    self.ui.durationSpinBox.value()
                 )
 
                 self.ui.recordButton.setText('Стоп')

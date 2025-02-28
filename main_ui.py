@@ -15,11 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QGridLayout,
-    QHBoxLayout, QLabel, QMainWindow, QMenuBar,
-    QPushButton, QSizePolicy, QSlider, QSpacerItem,
-    QSpinBox, QStatusBar, QTabWidget, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QHBoxLayout,
+    QLabel, QMainWindow, QMenuBar, QPushButton,
+    QSizePolicy, QSlider, QSpacerItem, QSpinBox,
+    QStatusBar, QTabWidget, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -203,17 +202,19 @@ class Ui_MainWindow(object):
 
         self.ouputDeviceGroup.addItem(self.horizontalSpacer)
 
-        self.label_2 = QLabel(self.centralwidget)
-        self.label_2.setObjectName(u"label_2")
+        self.durationLabel = QLabel(self.centralwidget)
+        self.durationLabel.setObjectName(u"durationLabel")
 
-        self.ouputDeviceGroup.addWidget(self.label_2)
+        self.ouputDeviceGroup.addWidget(self.durationLabel)
 
-        self.spinBox = QSpinBox(self.centralwidget)
-        self.spinBox.setObjectName(u"spinBox")
-        self.spinBox.setMinimum(1)
-        self.spinBox.setMaximum(600)
+        self.durationSpinBox = QSpinBox(self.centralwidget)
+        self.durationSpinBox.setObjectName(u"durationSpinBox")
+        self.durationSpinBox.setMinimum(0)
+        self.durationSpinBox.setMaximum(600)
+        self.durationSpinBox.setSingleStep(1)
+        self.durationSpinBox.setValue(3)
 
-        self.ouputDeviceGroup.addWidget(self.spinBox)
+        self.ouputDeviceGroup.addWidget(self.durationSpinBox)
 
 
         self.verticalLayout.addLayout(self.ouputDeviceGroup)
@@ -257,11 +258,6 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout.addLayout(self.outputAudioOptions)
-
-        self.checkBox = QCheckBox(self.centralwidget)
-        self.checkBox.setObjectName(u"checkBox")
-
-        self.verticalLayout.addWidget(self.checkBox)
 
         self.verticalSpacer_2 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -320,10 +316,9 @@ class Ui_MainWindow(object):
         self.poutputDeviceLabel.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e", None))
         self.fillerLabel2.setText("")
         self.volumeLabel.setText(QCoreApplication.translate("MainWindow", u"\u0413\u0440\u043e\u043c\u043a\u043e\u0441\u0442\u044c", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043b\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c", None))
+        self.durationLabel.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043b\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c", None))
         self.shapeLabel.setText(QCoreApplication.translate("MainWindow", u"\u0424\u043e\u0440\u043c\u0430 \u0441\u0438\u0433\u043d\u0430\u043b\u0430", None))
         self.frequencyLabel.setText(QCoreApplication.translate("MainWindow", u"\u0427\u0430\u0441\u0442\u043e\u0442\u0430", None))
-        self.checkBox.setText(QCoreApplication.translate("MainWindow", u"\u0411\u0435\u0441\u043a\u043e\u043d\u0435\u0447\u043d\u044b\u0439 \u0437\u0432\u0443\u043a", None))
         self.plotButton.setText(QCoreApplication.translate("MainWindow", u"\u0413\u0440\u0430\u0444\u0438\u043a", None))
         self.playButton.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0443\u043a", None))
         self.recordButton.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u0438\u0441\u044c", None))
