@@ -60,6 +60,25 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.recordTitle)
 
+        self.apiSelection = QHBoxLayout()
+        self.apiSelection.setObjectName(u"apiSelection")
+        self.apiLabel = QLabel(self.centralwidget)
+        self.apiLabel.setObjectName(u"apiLabel")
+
+        self.apiSelection.addWidget(self.apiLabel)
+
+        self.apiComboBox = QComboBox(self.centralwidget)
+        self.apiComboBox.setObjectName(u"apiComboBox")
+
+        self.apiSelection.addWidget(self.apiComboBox)
+
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.apiSelection.addItem(self.horizontalSpacer_4)
+
+
+        self.verticalLayout.addLayout(self.apiSelection)
+
         self.firstDeviceSelection = QHBoxLayout()
         self.firstDeviceSelection.setObjectName(u"firstDeviceSelection")
         self.firstDeviceLabel = QLabel(self.centralwidget)
@@ -307,6 +326,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         self.recordTitle.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u0438\u0441\u044c", None))
+        self.apiLabel.setText(QCoreApplication.translate("MainWindow", u"API:", None))
         self.firstDeviceLabel.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e 1", None))
         self.secondDeviceLabel.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e 2", None))
         self.fillerLabel1.setText("")

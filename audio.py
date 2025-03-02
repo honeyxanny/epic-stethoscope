@@ -27,12 +27,15 @@ class AudioProcessor:
         'Пила': lambda scale: sawtooth(2 * np.pi * scale, width=0.5)
     }
 
-    def get_info_about_system(self) -> tuple[list[tuple[str, int]], list[tuple[str, int]]]:
+    def get_system_apis(self):
+        return [(self.p.get_host_api_info_by_index(i)['name'], i) for i in range(self.p.get_host_api_count())]
+    
+    def get_device_names_by_api(self, api_index: int) -> tuple[list[tuple[str, int]]]:
         input_device_names = []
         output_device_names = []
-
-        for i in range(self.p.get_device_count()):
-            device_info = self.p.get_device_info_by_index(i)
+        
+        for i in range(self.p.get_host_api_info_by_index(api_index)['deviceCount']):
+            device_info = self.p.get_device_info_by_host_api_device_index(api_index, i)
 
             if device_info['maxInputChannels'] > 0:
                 input_device_names.append((device_info["name"].encode("cp1251").decode("utf-8"), i))
@@ -163,11 +166,14 @@ class AudioProcessor:
         length2 = len(data2)
 
         if length1 < length2:
-            data1 = np.concatenate((data1, np.zeros(length2 - length1)))
-        elif length2 < length1:
-            data2 = np.concatenate((data2, np.zeros(length1 - length2)))
+            data2 = data2[:length1]
+        else:
+            data1 = data1[:length2]
 
         _, (ax1, ax2, ax3) = plt.subplots(3, 1)
+
+        data1 = data1 / np.max(np.abs(data1))
+        data2 = data2 / np.max(np.abs(data2))
 
         ax1.plot(data1, color='b')
         ax1.set_title(os.path.basename(file_path1))
