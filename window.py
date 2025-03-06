@@ -17,6 +17,9 @@ class MainWindow(QMainWindow):
 
         system_apis = self.ap.get_system_apis()
 
+        self.ui.sampleRateComboBox.addItems([str(sample_rate) for sample_rate in config.sample_rates])
+        self.ui.shapeComboBox.addItems(self.ap.shapes.keys())
+
         if len(system_apis) == 0:
             self._show_message_box('В системе отсутствует API для работы со звуком!')
             return 
@@ -158,6 +161,3 @@ class MainWindow(QMainWindow):
 
         for ouput_device in output_device_info:
             self.ui.outputDeviceComboBox.addItem(*ouput_device)
-
-        self.ui.sampleRateComboBox.addItems([str(sample_rate) for sample_rate in config.sample_rates])
-        self.ui.shapeComboBox.addItems(self.ap.shapes.keys())
